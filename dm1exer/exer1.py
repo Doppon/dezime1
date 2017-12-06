@@ -21,6 +21,8 @@ for y in range(H) :
         g = img[y,x,1]
         b = img[y,x,0]
         # ここを編集
-        
+        img[y,x,2] = b
+        img[y,x,0] = r
+
 #save image
 cv2.imwrite(fname_out, img )
