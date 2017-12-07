@@ -25,14 +25,14 @@ mask = np.array([[0,8,2,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]])
 
 #ハーフトーン画像を作成計算
 #ここを編集（頑張ると3行くらいで書けます）
-for y in range( H ) :
-  for x in range( W ) :
+for y in range(H) :
+  for x in range(W) :
     if( img[y,x]*16/255 >= mask[y%4,x%4]) :
-      img_out[y,x] = 255
+      img[y,x] = 255
     else :
-      img_out[y,x] = 0
+      img[y,x] = 0
 
 
 
 #出力
-cv2.imwrite( fname_out, img_out);
+cv2.imwrite( fname_out, img);
