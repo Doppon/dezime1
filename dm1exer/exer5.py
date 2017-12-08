@@ -4,6 +4,7 @@
 # 第2引数はモザイクのサイズ 
 # この課題は, nparrayの[スライス表現]を使うと非常に簡単にかける（使わなくともよい）
 
+# 実行コマンド python exer5.py fname_in.png N fname_out.png
 import numpy as np
 import sys
 import cv2
@@ -38,3 +39,5 @@ for y in range( int( img.shape[0] / R + 1) ) :
             
         
 cv2.imwrite(fname_out, np.uint8( img) )
+cv2.imshow("Show Image",img)
+cv2.waitKey()

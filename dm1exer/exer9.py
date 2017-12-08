@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# exer9.py
+# exer10.py
 #
-# *txtファイルから数列を読み込み，フーリエ変換して出力する
-# フーリエ変換結果の複素数列 Fk = Rk + i*Ik は，以下の通り書き出すこと
+# *txtファイルから複素数列を読み込み，逆フーリエ変換して出力する
+# 入力・出力ともに複素数列であり，以下のフォーマットにて保存されているものとする (sample1.txt参照)
 #
 # ------fname_out.txt ------
 # R0 I0
@@ -13,7 +13,8 @@
 #   :
 # --------------------------
 #
-#以下に Rk = Ik = 0として書き出すコードを示す
+# pythonには複素数型が用意されているが今回は利用しない
+
 
 import numpy as np
 import sys
@@ -23,37 +24,32 @@ fname_in  = sys.argv[1]
 fname_out = sys.argv[2]
 
 #数列データファイル(txt)を開く
-file = open( fname_in )
-fi = []
-
-while 1 :
-    line = file.readline()
-    if not line :
-        break
-    fi.append( float(line) )
-file.close()
-
-print(fi)
+Rk, Ik = [], []
+for line in open(fname_in).readlines():
+    data = line[:-1].split(' ')
+    Rk.append( float(data[0]) )
+    Ik.append( float(data[1]) )
+print(Rk, Ik)
 
 
 #fourie transform
-N = len(fi)
+N = len(Rk)
+Rl=[]
+Il=[]
 
-Rk = []
-Ik = []
-
-for k in range(N) :
-    rk,ik=0,0
-    #ここを修正する　append(ｘ)は末尾に要素ｘを追加する
-    for l  in range(N-1):
-        rk+=fi[l]*math.cos(2.0*math.pi*k*l/N) /N
-        ik-=fi[l]*math.sin(2.0*math.pi*k*l/N) /N
-    Rk.append( rk)
-    Ik.append(ik)
-
+#ここを編集
+for l in range(N+1) :
+    rl=0.0
+    il=0.0
+    for k  in range(N):
+        S=float(2*math.pi*l*k/N)#S:三角関数の引数(汚いからまとめた)
+        rl +=Rk[k]*math.cos(float(2*math.pi*l*k/N))-Ik[k]*math.sin(float(2*math.pi*l*k/N))
+        il +=Rk[k]*math.sin(float(2*math.pi*l*k/N))+Ik[k]*math.cos(float(2*math.pi*l*k/N))
+    Rl.append(rl)
+    Il.append(il)
 
 
 file_out = open(fname_out, 'w') # 書き込みモードで開く
 for i in range( N ) :
-    file_out.write( str( Rk[i] ) + " " + str( Ik[i] ) + "\n")
+    file_out.write( str( Rl[i] ) + " " + str( Il[i] ) + "\n")
 file_out.close()

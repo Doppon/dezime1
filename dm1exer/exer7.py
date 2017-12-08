@@ -1,6 +1,7 @@
 # task7.py
 # ハーフトーン処理(誤差拡散法)
 
+# 実行コマンドpython exer7.py fname_in.png fname_out.png
 import numpy as np
 import cv2
 import sys
