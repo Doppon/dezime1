@@ -45,11 +45,11 @@ Ik = []
 for k in range(N) : 
 
     #ここを修正する
-    R = math.cos(2 + math.pi * k * fi[k] / N)
-    I = -math.sin(2 * math.pi * k * fi[k] / N)
+    Rk = math.cos(2 + math.pi * k * fi[k] / N)
+    Ik = -math.sin(2 * math.pi * k * fi[k] / N)
 
-    Rk.append(R)
-    IK.append(I)
+    R.append(R)
+    I.append(I)
 
 
 
