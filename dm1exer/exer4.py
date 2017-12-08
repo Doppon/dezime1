@@ -24,7 +24,7 @@ img_out = np.zeros_like( img )
 #フィルタ処理
 
 #ここを編集
-for y in range( 1, img.shape[0]-1 ) : #端っこは無視
+for y in range( 1, img.shape[0]-1 ) :
     for x in range( 1, img.shape[1]-1 ) : 
         #横sobel
         fx = -1*img[y-1,x-1]+ 0*img[y-1,x]+ 1*img[y-1,x+1]+\
@@ -34,9 +34,12 @@ for y in range( 1, img.shape[0]-1 ) : #端っこは無視
         fy =  1*img[y-1,x-1]+ 2*img[y-1,x]+ 1*img[y-1,x+1]+\
               0*img[y  ,x-1]+ 0*img[y  ,x]+ 0*img[y  ,x+1]+\
              -1*img[y+1,x-1]- 2*img[y+1,x]- 1*img[y+1,x+1]
+
         #勾配強度を保存
         img_out[y,x] = math.sqrt( (math.pow(fx,2) + math.pow(fy,2)) )
 
+        if(img_out[y,x] > 255) : 
+            img_out[y,x] = 255
 
         
 #float型からuint8型に変換し、書き出し
