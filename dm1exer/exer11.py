@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# exer11.py 
+# exer11.py
 # 画像の離散フーリエ変換
 #
 # 画像のフーリエ変換結果は，Fuv = Ruv + i * Iuv と複素数画像となる
@@ -33,15 +33,17 @@ W = img.shape[1]
 
 
 # !! 以下を編集する !!
-for v in range( H ) : 
-    for u in range( W ) : 
-        
-        Rvu[v,u] = 1 
-        Ivu[v,u] = 1
+for v in range (H):
+    for u in range (W):
+        #rvu=0.0
+        #ivu=0.0
+        for y in range( H ) :
+            for x in range( W ) :
+                Rvu[v,u]+=(img[y,x]*math.cos(-2*math.pi*x*u/W-2*math.pi*y*v/H))/(W*H)
+                Ivu[v,u]+=(img[y,x]*math.sin(-2*math.pi*x*u/W-2*math.pi*y*v/H))/(W*H)
 
-
-
-
+        #Rvu.append (rvu)
+        #Ivu.append (ivu)
 
 
 # 2 正規化
@@ -49,9 +51,14 @@ for v in range( H ) :
 Rvu[0,0] = 0
 
 # Rvu/Ivuの最大値・最小値を利用し，画素値が[0,255]となるように正規化する
+Drw=np.max(Rvu)-np.min(Rvu)
+Diw=np.max(Ivu)-np.min(Ivu)
 
+for v in range(H):
+    for u in range(W):
+        Rvu[v,u]=(Rvu[v,u]-np.min(Rvu))/Drw*255
+        Ivu[v,u]=(Ivu[v,u]-np.min(Ivu))/Diw*255
 # !! ここも編集する！！
-
 
 
 #float型からuint8型に変換し、書き出し
